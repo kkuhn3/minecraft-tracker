@@ -190,9 +190,10 @@ function placeUnlocks() {
 	setTopLeft("Archery", 3, 1);
 	setTopLeft("Brewing", 3, 2);
 	setTopLeft("Enchanting", 3, 3);
-	setTopLeft("Flint and Steel", 3, 4);
-	setTopLeft("Bed", 3, 5);
-	setTopLeft("Bottles", 3, 6);
+	setTopLeft("Bucket", 3, 4);
+	setTopLeft("Flint and Steel", 3, 5);
+	setTopLeft("Bed", 3, 6);
+	setTopLeft("Bottles", 3, 7);
 	setTopLeft("Shield", 4, 1);
 	setTopLeft("Fishing Rod", 4, 2);
 	setTopLeft("Campfire", 4, 3);

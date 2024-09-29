@@ -42,7 +42,7 @@ body {
 	position: absolute;
 	border:4px solid black;
 	box-shadow: 4px 4px;
-	background-color: red;
+	background-color: #ff8080;
 	cursor: pointer;
 }
 img {
@@ -85,16 +85,16 @@ img {
 }
 
 .logical {
-	background-color: green;
+	background-color: #80ff80;
 }
 .possible {
-	background-color: blue;
+	background-color: #8080ff;
 }
 .excluded {
-	background-color: grey;
+	background-color: #808080;
 }
 .checked {
-	background-color: grey;
+	background-color: #808080;
 }
 
 #settings {

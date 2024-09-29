@@ -42,15 +42,15 @@ function setColorClass(node, logic) {
 
 function logicToColor(logic) {
 	if (logic === "logical") {
-		return "green";
+		return "#80ff80";
 	}
 	if (logic === "possible") {
-		return "blue";
+		return "#8080ff";
 	}
 	if (logic === "excluded") {
-		return "grey";
+		return "#808080";
 	}
-	return "red";
+	return "#ff8080";
 }
 
 function addOnClicks() {
