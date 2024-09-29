@@ -1,0 +1,323 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="index.css">
+		<script src="static/locationTypes.js"></script>
+		<script src="logic.js"></script>
+		<script src="style.js"></script>
+		<script src="selectors.js"></script>
+		<script src="agg.js"></script>
+		<title>Minecraft Tracker</title>
+	</head>
+	<body>
+		<div id="selectors">
+			<button type="button" onclick="tabUpdate('settings')">Settings</button>
+			<button type="button" onclick="tabUpdate('unlocks')">Unlocks</button>
+			<button type="button" onclick="tabUpdate('minecraft')">Minecraft</button>
+			<button type="button" onclick="tabUpdate('nether')">Nether</button>
+			<button type="button" onclick="tabUpdate('end')">The End</button>
+			<button type="button" onclick="tabUpdate('adventure')">Adventure</button>
+			<button type="button" onclick="tabUpdate('husbandry')">Husbandry</button>
+			<button type="button" onclick="tabUpdate('archipelago')">Archipelago</button>
+			<div id="counts">0/50/300</div>
+		</div>
+		<div class="category" id="settings">
+			<div class="header">
+				Archipelago Configs
+			</div>
+			<div>
+				<label>Player Name</label>
+				<input type="text" id="PNAME" />
+			</div>
+			<div>
+				<label>Archipelago Port</label>
+				<input type="text" id="APORT" />
+			</div>
+			<div>
+				<label>Let's Go</label>
+				<button type="button" onclick="connect()">Connect</button>
+			</div>
+
+			<div class="header">
+				Randomizer Settings
+			</div>
+			<div>
+				<label>Advancements for Goal</label>
+				<select id="advancement_goal">
+					<option value="40" selected>40</option>
+					<option value="41">41</option>
+					<option value="42">42</option>
+					<option value="43">43</option>
+					<option value="44">44</option>
+					<option value="45">45</option>
+					<option value="46">46</option>
+					<option value="47">47</option>
+					<option value="48">48</option>
+					<option value="49">49</option>
+					<option value="50">50</option>
+				</select>
+			</div>
+			<div>
+				<label>Goal</label>
+				<select id="required_bosses">
+					<option value="none">Advancements</option>
+					<option value="dragon" selected>Ender Dragon</option>
+					<option value="wither">Wither</option>
+					<option value="both">Both</option>
+				</select>
+			</div>
+			<div>
+				<label>Village Dimension</label>
+				<select id="village">
+					<option value="overworld" selected>Overworld</option>
+					<option value="nether">Nether</option>
+					<option value="end">The End</option>
+				</select>
+			</div>
+			<div>
+				<label>Pillager Outpost Dimension</label>
+				<select id="outpost">
+					<option value="overworld" selected>Overworld</option>
+					<option value="nether">Nether</option>
+					<option value="end">The End</option>
+				</select>
+			</div>
+			<div>
+				<label>Nether Fortress Dimension</label>
+				<select id="fortress">
+					<option value="overworld">Overworld</option>
+					<option value="nether" selected>Nether</option>
+					<option value="end">The End</option>
+				</select>
+			</div>
+			<div>
+				<label>Bastion Remnant Dimension</label>
+				<select id="bastion">
+					<option value="overworld">Overworld</option>
+					<option value="nether" selected>Nether</option>
+					<option value="end">The End</option>
+				</select>
+			</div>
+			<div>
+				<label>End City Dimension</label>
+				<select id="city">
+					<option value="overworld">Overworld</option>
+					<option value="nether">Nether</option>
+					<option value="end" selected>The End</option>
+				</select>
+			</div>
+			<div>
+				<label>Structure Compasses</label>
+				<select id="structure_compasses">
+					<option value="">Excluded</option>
+					<option value="true" selected>Included</option>
+				</select>
+			</div>
+			<div>
+				<label>Hard Advancements</label>
+				<select id="include_hard_advancements">
+					<option value="" selected>Excluded</option>
+					<option value="true">Included</option>
+				</select>
+			</div>
+			<div>
+				<label>Unreasonable Advancements</label>
+				<select id="include_unreasonable_advancements">
+					<option value="" selected>Excluded</option>
+					<option value="true">Included</option>
+				</select>
+			</div>
+		</div>
+		<div class="category" id="unlocks">
+			<div class="unlock _0" id="Progressive Resource Crafting"></div>
+			<div class="unlock _0" id="Progressive Tools"></div>
+			<div class="unlock _0" id="Progressive Weapons"></div>
+			<div class="unlock _0" id="Progressive Armor"></div>
+
+			<div class="unlock _0" id="3 Ender Pearls"></div>
+			<div class="unlock _0" id="8 Netherite Scrap"></div>
+			<div class="unlock _0" id="Channeling Book"></div>
+			<div class="unlock _0" id="Silk Touch Book"></div>
+			<div class="unlock _0" id="Piercing IV Book"></div>
+
+			<div class="unlock _0" id="Archery"></div>
+			<div class="unlock _0" id="Brewing"></div>
+			<div class="unlock _0" id="Enchanting"></div>
+			<div class="unlock _0" id="Flint and Steel"></div>
+			<div class="unlock _0" id="Bed"></div>
+			<div class="unlock _0" id="Bottles"></div>
+
+			<div class="unlock _0" id="Shield"></div>
+			<div class="unlock _0" id="Fishing Rod"></div>
+			<div class="unlock _0" id="Campfire"></div>
+			<div class="unlock _0" id="Saddle"></div>
+			<div class="unlock _0" id="Spyglass"></div>
+			<div class="unlock _0" id="Lead"></div>
+			
+			<div class="unlock _0" id="Structure Compass (Village)"></div>
+			<div class="unlock _0" id="Structure Compass (Pillager Outpost)"></div>
+			<div class="unlock _0" id="Structure Compass (Nether Fortress)"></div>
+			<div class="unlock _0" id="Structure Compass (Bastion Remnant)"></div>
+			<div class="unlock _0" id="Structure Compass (End City)"></div>
+		</div>
+		<div class="category" id="minecraft">
+			<div class="node" id="story/root"></div>
+			<div class="node" id="story/mine_stone"></div>
+			<div class="node" id="story/upgrade_tools"></div>
+			<div class="node" id="story/smelt_iron"></div>
+			<div class="node" id="story/obtain_armor"></div>
+			<div class="node" id="story/lava_bucket"></div>
+			<div class="node" id="story/iron_tools"></div>
+			<div class="node" id="story/deflect_arrow"></div>
+			<div class="node" id="story/form_obsidian"></div>
+			<div class="node" id="story/mine_diamond"></div>
+			<div class="node" id="story/enter_the_nether"></div>
+			<div class="node" id="story/shiny_gear"></div>
+			<div class="node" id="story/enchant_item"></div>
+			<div class="node" id="story/cure_zombie_villager"></div>
+			<div class="node" id="story/follow_ender_eye"></div>
+			<div class="node" id="story/enter_the_end"></div>
+		</div>
+		<div class="category" id="nether">
+			<div class="node" id="nether/root"></div>
+			<div class="node" id="nether/return_to_sender"></div>
+			<div class="node" id="nether/find_bastion"></div>
+			<div class="node" id="nether/obtain_ancient_debris"></div>
+			<div class="node" id="nether/fast_travel"></div>
+			<div class="node" id="nether/find_fortress"></div>
+			<div class="node" id="nether/obtain_crying_obsidian"></div>
+			<div class="node" id="nether/distract_piglin"></div>
+			<div class="node" id="nether/ride_strider"></div>
+			<div class="node" id="nether/uneasy_alliance"></div>
+			<div class="node" id="nether/loot_bastion"></div>
+			<div class="node" id="nether/use_lodestone"></div>
+			<div class="node" id="nether/netherite_armor"></div>
+			<div class="node" id="nether/get_wither_skull"></div>
+			<div class="node" id="nether/obtain_blaze_rod"></div>
+			<div class="node" id="nether/charge_respawn_anchor"></div>
+			<div class="node" id="nether/ride_strider_in_overworld_lava"></div>
+			<div class="node" id="nether/explore_nether"></div>
+			<div class="node" id="nether/summon_wither"></div>
+			<div class="node" id="nether/brew_potion"></div>
+			<div class="node" id="nether/create_beacon"></div>
+			<div class="node" id="nether/all_potions"></div>
+			<div class="node" id="nether/create_full_beacon"></div>
+			<div class="node" id="nether/all_effects"></div>
+		</div>
+		<div class="category" id="end">
+			<div class="node" id="end/root"></div>
+			<div class="node" id="end/kill_dragon"></div>
+			<div class="node" id="end/dragon_egg"></div>
+			<div class="node" id="end/enter_end_gateway"></div>
+			<div class="node" id="end/respawn_dragon"></div>
+			<div class="node" id="end/dragon_breath"></div>
+			<div class="node" id="end/find_end_city"></div>
+			<div class="node" id="end/elytra"></div>
+			<div class="node" id="end/levitate"></div>
+		</div>
+		<div class="category" id="adventure">
+			<div class="node" id="adventure/root"></div>
+			<div class="node" id="adventure/voluntary_exile"></div>
+			<div class="node" id="adventure/spyglass_at_parrot"></div>
+			<div class="node" id="adventure/kill_a_mob"></div>
+			<div class="node" id="adventure/read_power_of_chiseled_bookshelf"></div>
+			<div class="node" id="adventure/trade"></div>
+			<div class="node" id="adventure/trim_with_any_armor_pattern"></div>
+			<div class="node" id="adventure/honey_block_slide"></div>
+			<div class="node" id="adventure/ol_betsy"></div>
+			<div class="node" id="adventure/lightning_rod_with_villager_no_fire"></div>
+			<div class="node" id="adventure/fall_from_world_height"></div>
+			<div class="node" id="adventure/salvage_sherd"></div>
+			<div class="node" id="adventure/avoid_vibration"></div>
+			<div class="node" id="adventure/sleep_in_bed"></div>
+			<div class="node" id="adventure/hero_of_the_village"></div>
+			<div class="node" id="adventure/spyglass_at_ghast"></div>
+			<div class="node" id="adventure/throw_trident"></div>
+			<div class="node" id="adventure/kill_mob_near_sculk_catalyst"></div>
+			<div class="node" id="adventure/shoot_arrow"></div>
+			<div class="node" id="adventure/kill_all_mobs"></div>
+			<div class="node" id="adventure/totem_of_undying"></div>
+			<div class="node" id="adventure/summon_iron_golem"></div>
+			<div class="node" id="adventure/trade_at_world_height"></div>
+			<div class="node" id="adventure/trim_with_all_exclusive_armor_patterns"></div>
+			<div class="node" id="adventure/two_birds_one_arrow"></div>
+			<div class="node" id="adventure/whos_the_pillager_now"></div>
+			<div class="node" id="adventure/arbalistic"></div>
+			<div class="node" id="adventure/craft_decorated_pot_using_only_sherds"></div>
+			<div class="node" id="adventure/adventuring_time"></div>
+			<div class="node" id="adventure/play_jukebox_in_meadows"></div>
+			<div class="node" id="adventure/walk_on_powder_snow_with_leather_boots"></div>
+			<div class="node" id="adventure/spyglass_at_dragon"></div>
+			<div class="node" id="adventure/very_very_frightening"></div>
+			<div class="node" id="adventure/sniper_duel"></div>
+			<div class="node" id="adventure/bullseye"></div>
+			<div class="node" id="adventure/brush_armadillo"></div>
+			<div class="node" id="adventure/minecraft_trials_edition"></div>
+			<div class="node" id="adventure/crafters_crafting_crafters"></div>
+			<div class="node" id="adventure/lighten_up"></div>
+			<div class="node" id="adventure/who_needs_rockets"></div>
+			<div class="node" id="adventure/under_lock_and_key"></div>
+			<div class="node" id="adventure/revaulting"></div>
+			<div class="node" id="adventure/blowback"></div>
+			<div class="node" id="adventure/overoverkill"></div>
+		</div>
+		<div class="category" id="husbandry">
+			<div class="node" id="husbandry/root"></div>
+			<div class="node" id="husbandry/safely_harvest_honey"></div>
+			<div class="node" id="husbandry/breed_an_animal"></div>
+			<div class="node" id="husbandry/allay_deliver_item_to_player"></div>
+			<div class="node" id="husbandry/ride_a_boat_with_a_goat"></div>
+			<div class="node" id="husbandry/tame_an_animal"></div>
+			<div class="node" id="husbandry/make_a_sign_glow"></div>
+			<div class="node" id="husbandry/fishy_business"></div>
+			<div class="node" id="husbandry/silk_touch_nest"></div>
+			<div class="node" id="husbandry/tadpole_in_a_bucket"></div>
+			<div class="node" id="husbandry/obtain_sniffer_egg"></div>
+			<div class="node" id="husbandry/plant_seed"></div>
+			<div class="node" id="husbandry/wax_on"></div>
+			<div class="node" id="husbandry/bred_all_animals"></div>
+			<div class="node" id="husbandry/allay_deliver_cake_to_note_block"></div>
+			<div class="node" id="husbandry/complete_catalogue"></div>
+			<div class="node" id="husbandry/tactical_fishing"></div>
+			<div class="node" id="husbandry/leash_all_frog_variants"></div>
+			<div class="node" id="husbandry/feed_snifflet"></div>
+			<div class="node" id="husbandry/balanced_diet"></div>
+			<div class="node" id="husbandry/obtain_netherite_hoe"></div>
+			<div class="node" id="husbandry/wax_off"></div>
+			<div class="node" id="husbandry/axolotl_in_a_bucket"></div>
+			<div class="node" id="husbandry/froglights"></div>
+			<div class="node" id="husbandry/plant_any_sniffer_seed"></div>
+			<div class="node" id="husbandry/kill_axolotl_target"></div>
+			<div class="node" id="husbandry/repair_wolf_armor"></div>
+			<div class="node" id="husbandry/whole_pack"></div>
+			<div class="node" id="husbandry/remove_wolf_armor"></div>
+		</div>
+		<div class="category" id="archipelago">
+			<div class="node" id="archipelago/root"></div>
+			<div class="node" id="archipelago/get_wood"></div>
+			<div class="node" id="archipelago/craft_sword"></div>
+			<div class="node" id="archipelago/get_pickaxe"></div>
+			<div class="node" id="archipelago/cow_tipper"></div>
+			<div class="node" id="archipelago/hot_topic"></div>
+			<div class="node" id="archipelago/bake_bread"></div>
+			<div class="node" id="archipelago/ride_minecart"></div>
+			<div class="node" id="archipelago/overpowered"></div>
+			<div class="node" id="archipelago/the_lie"></div>
+			<div class="node" id="archipelago/overkill"></div>
+			<div class="node" id="archipelago/obtain_bookshelf"></div>
+			<div class="node" id="archipelago/ride_pig"></div>
+		</div>
+	</body>
+	<script>
+		(async() => {
+			await loadContent();
+			addResizer();
+			addInfoDivs();
+			updateNodes();
+			addOnClicks();
+			tabUpdate("minecraft");
+			addImages();
+			setScaleSize();
+			positionInfo();
+		})();
+	</script>
+</html>
