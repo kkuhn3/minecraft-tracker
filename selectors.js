@@ -25,16 +25,16 @@ function updateNodes() {
 			"<span><b>" + advancement.name + "<b></span><br>" +
 			"<span><I>" + advancement.description + "<I></span><br>" +
 			"<br>";
-		const color = logicToColor(logic);
+		// const color = logicToColor(logic);
 		for (const [key, value] of Object.entries(getCriteria(node.id))) {
-			info.innerHTML = info.innerHTML + '<span style="color: ' + color + ';">&nbsp;-&nbsp;' + key + "<span><br>";
+			info.innerHTML = info.innerHTML + '<span style="color: #a0a0a0;">&nbsp;-&nbsp;' + key + "<span><br>";
 		}
 	}
 	countChecks();
 }
 
 function setColorClass(node, logic) {
-	node.classList.remove("logical", "possible", "excluded");
+	node.classList.remove("logical", "possible", "excluded", "noop");
 	if (logic) {
 		node.classList.add(logic);
 	}
@@ -48,7 +48,10 @@ function logicToColor(logic) {
 		return "#8080ff";
 	}
 	if (logic === "excluded") {
-		return "#808080";
+		return "#ff80ff";
+	}
+	if (logic === "noop") {
+		return "#a0a0a0";
 	}
 	return "#ff8080";
 }
@@ -89,6 +92,13 @@ function addOnClicks() {
 			updateNodes();
 		};
 	}
+
+	const sels = document.getElementsByTagName('select');
+	for (let sel of sels) {
+		sel.onclick = function() {
+			updateNodes();
+		}
+	}
 }
 
 function itemIterate(unlock, max) {
@@ -113,7 +123,7 @@ function countChecks() {
 	let logical = 0;
 	const nodes = document.getElementsByClassName("node");
 	for (let node of nodes) {
-		if (!node.classList.contains("excluded")) {
+		if (!node.classList.contains("noop")) {
 			total = total + 1;
 			if (node.classList.contains("checked")) {
 				checked = checked + 1;

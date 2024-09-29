@@ -61,7 +61,6 @@ function can_structure(settingDiv, compassName) {
 		else {
 			return can_adventure();
 		}
-		return "logical";
 	}
 	if (settingDiv.value === "nether") {
 		if (structure_compasses.value) {
@@ -76,7 +75,6 @@ function can_structure(settingDiv, compassName) {
 			}
 			return hasAll("possible", can_nether());
 		}
-		return can_nether();
 	}
 	if (settingDiv.value === "end") {
 		if (structure_compasses.value) {
@@ -91,7 +89,6 @@ function can_structure(settingDiv, compassName) {
 			}
 			return hasAll("possible", can_end());
 		}
-		return can_end();
 	}
 }
 function can_village() {
@@ -374,7 +371,7 @@ function can_cure_zombie() {
 // The logic Proper
 const locationLogic = {
 	"story/root": function() {
-		return "excluded";
+		return "logical";
 	},
 	"story/mine_stone": function() {
 		return "logical";
@@ -443,7 +440,7 @@ const locationLogic = {
 		return can_end();
 	},
 	"nether/root": function() {
-		return "excluded";
+		return can_nether();
 	},
 	"nether/return_to_sender": function() {
 		return can_nether();
@@ -470,6 +467,9 @@ const locationLogic = {
 		return can_strider();
 	},
 	"nether/uneasy_alliance": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		if (has("Fishing Rod")) {
 			return has_diamond_pickaxe();
 		}
@@ -485,6 +485,9 @@ const locationLogic = {
 		return "possible";
 	},
 	"nether/netherite_armor": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		if (has("Progressive Armor", 2) && has("Progressive Resource Crafting")) {
 			return hasEither("possible", hasAll(has("8 Netherite Scrap"), 2), has_diamond_pickaxe(), has_iron_ingots(), can_brew_potions(), has("Bed"));
 		}
@@ -513,6 +516,9 @@ const locationLogic = {
 		return can_nether();
 	},
 	"nether/summon_wither": function() {
+		if (required_bosses.value === "wither") {
+			return "excluded";
+		}
 		return can_kill_wither();
 	},
 	"nether/brew_potion": function() {
@@ -522,33 +528,66 @@ const locationLogic = {
 		return "possible";
 	},
 	"nether/create_beacon": function() {
+		if (required_bosses.value === "wither") {
+			return "excluded";
+		}
 		return can_beacon();
 	},
 	"nether/all_potions": function() {
+		if (required_bosses.value === "wither") {
+			return "excluded";
+		}
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		return can_all_potions();
 	},
 	"nether/create_full_beacon": function() {
+		if (required_bosses.value === "wither") {
+			return "excluded";
+		}
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		return can_beacon();
 	},
 	"nether/all_effects": function() {
+		if (required_bosses.value === "wither") {
+			return "excluded";
+		}
+		if (!include_unreasonable_advancements.value) {
+			return "excluded";
+		}
 		return hasAll(can_all_potions(), has_gold_ingots(), can_city(), has("Archery"), can_beacon(), can_complete_raid());
 	},
 	"end/root": function() {
-		return "excluded";
+		return can_end();
 	},
 	"end/kill_dragon": function() {
+		if (required_bosses.value === "dragon") {
+			return "excluded";
+		}
 		return can_kill_dragon();
 	},
 	"end/dragon_egg": function() {
+		if (required_bosses.value === "dragon") {
+			return "excluded";
+		}
 		return hasAll(can_respawn_dragon(), can_kill_dragon());
 	},
 	"end/enter_end_gateway": function() {
 		return can_end();
 	},
 	"end/respawn_dragon": function() {
+		if (required_bosses.value === "dragon") {
+			return "excluded";
+		}
 		return hasAll(can_respawn_dragon(), can_kill_dragon());
 	},
 	"end/dragon_breath": function() {
+		if (required_bosses.value === "dragon") {
+			return "excluded";
+		}
 		if (has("Bottles")) {
 			// Potentially a bug, not needing to spawn the dragon the first time
 			return can_respawn_dragon();
@@ -564,7 +603,7 @@ const locationLogic = {
 		return hasAll(can_basic_combat(), can_city());
 	},
 	"adventure/root": function() {
-		return "excluded";
+		return "logical";
 	},
 	"adventure/voluntary_exile": function() {
 		return hasAll(can_basic_combat(), can_outpost());
@@ -576,13 +615,13 @@ const locationLogic = {
 		return "logical";
 	},
 	"adventure/read_power_of_chiseled_bookshelf": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/trade": function() {
 		return can_village();
 	},
 	"adventure/trim_with_any_armor_pattern": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/honey_block_slide": function() {
 		return hasAll(has("Campfire"), has_bottle());
@@ -591,6 +630,9 @@ const locationLogic = {
 		return has_crossbow();
 	},
 	"adventure/lightning_rod_with_villager_no_fire": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		if (has("Channeling Book") && can_enchant()) {
 			return hasAll(can_use_anvil(), can_villager_overworld())
 		}
@@ -603,7 +645,7 @@ const locationLogic = {
 		return "possible";
 	},
 	"adventure/salvage_sherd": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/avoid_vibration": function() {
 		if (has("Progressive Tools", 2)) {
@@ -636,6 +678,15 @@ const locationLogic = {
 		return "possible";
 	},
 	"adventure/kill_all_mobs": function() {
+		if (required_bosses.value === "wither") {
+			return "excluded";
+		}
+		if (required_bosses.value === "dragon") {
+			return "excluded";
+		}
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		if (has("Fishing Rod")) {
 			return hasAll(can_respawn_dragon(), can_kill_dragon(), can_kill_wither());
 		}
@@ -650,6 +701,9 @@ const locationLogic = {
 		}
 	},
 	"adventure/trade_at_world_height": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		if (has("Bucket")) {
 			if (hasEither(can_nether(), can_fortress(), can_piglin_trade()) === "logical") {
 				if (has_iron_ingots() === "logical") {
@@ -660,24 +714,36 @@ const locationLogic = {
 		return can_villager_overworld();
 	},
 	"adventure/trim_with_all_exclusive_armor_patterns": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/two_birds_one_arrow": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		return hasAll(has_crossbow(), can_enchant());
 	},
 	"adventure/whos_the_pillager_now": function() {
 		return hasAll(has_crossbow(), can_outpost());
 	},
 	"adventure/arbalistic": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		return hasAll(has_crossbow(), has("Piercing IV Book"), can_use_anvil(), can_enchant());
 	},
 	"adventure/craft_decorated_pot_using_only_sherds": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/adventuring_time": function() {
+		if (!include_unreasonable_advancements.value) {
+			return "excluded";
+		}
 		return can_adventure();
 	},
 	"adventure/play_jukebox_in_meadows": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		if (has("Progressive Tools")) {
 			return hasAll(has_iron_ingots(), can_basic_combat());
 		}
@@ -689,12 +755,18 @@ const locationLogic = {
 		return hasAll("possible", has_iron_ingots(), can_adventure());
 	},
 	"adventure/spyglass_at_dragon": function() {
+		if (required_bosses.value === "dragon") {
+			return "excluded";
+		}
 		if (can_respawn_dragon() === "logical") {
 			return has_spyglass();
 		}
 		return hasAll(has_spyglass(), can_end());
 	},
 	"adventure/very_very_frightening": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		if (has("Channeling Book") && can_enchant()) {
 			return hasAll(can_use_anvil(), can_villager_overworld())
 		}
@@ -713,34 +785,34 @@ const locationLogic = {
 		return "possible";
 	},
 	"adventure/brush_armadillo": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/minecraft_trials_edition": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/crafters_crafting_crafters": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/lighten_up": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/who_needs_rockets": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/under_lock_and_key": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/revaulting": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/blowback": function() {
-		return "excluded";
+		return "noop";
 	},
 	"adventure/overoverkill": function() {
-		return "excluded";
+		return "noop";
 	},
 	"husbandry/root": function() {
-		return "excluded";
+		return "logical";
 	},
 	"husbandry/safely_harvest_honey": function() {
 		return hasAll(has("Campfire"), has_bottle());;
@@ -773,7 +845,7 @@ const locationLogic = {
 		return hasAll("possible", can_village());
 	},
 	"husbandry/obtain_sniffer_egg": function() {
-		return "excluded";
+		return "noop";
 	},
 	"husbandry/plant_seed": function() {
 		return "logical";
@@ -784,6 +856,9 @@ const locationLogic = {
 		}
 	},
 	"husbandry/bred_all_animals": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		if (has("Bucket")) {
 			return hasAll(has_iron_ingots(), can_adventure());
 		}
@@ -796,6 +871,9 @@ const locationLogic = {
 		return hasAll("possible", can_village(), can_outpost());
 	},
 	"husbandry/complete_catalogue": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		return can_village();
 	},
 	"husbandry/tactical_fishing": function() {
@@ -805,14 +883,20 @@ const locationLogic = {
 		return hasAll("possible", can_village());
 	},
 	"husbandry/leash_all_frog_variants": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		if (has("Lead")) {
 			return can_adventure();
 		}
 	},
 	"husbandry/feed_snifflet": function() {
-		return "excluded";
+		return "noop";
 	},
 	"husbandry/balanced_diet": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		if (has_bottle() && has("Progressive Resource Crafting", 2)) {
 			return hasAll(has_gold_ingots(), can_end());
 		}
@@ -837,12 +921,15 @@ const locationLogic = {
 		return hasAll("possible", can_village());
 	},
 	"husbandry/froglights": function() {
+		if (!include_hard_advancements.value) {
+			return "excluded";
+		}
 		if (has("Lead")) {
 			return can_adventure();
 		}
 	},
 	"husbandry/plant_any_sniffer_seed": function() {
-		return "excluded";
+		return "noop";
 	},
 	"husbandry/kill_axolotl_target": function() {
 		if (has("Bucket")) {
@@ -851,16 +938,16 @@ const locationLogic = {
 		return hasAll("possible", can_village());
 	},
 	"husbandry/repair_wolf_armor": function() {
-		return "excluded";
+		return "noop";
 	},
 	"husbandry/whole_pack": function() {
-		return "excluded";
+		return "noop";
 	},
 	"husbandry/remove_wolf_armor": function() {
-		return "excluded";
+		return "noop";
 	},
 	"archipelago/root": function() {
-		return "excluded";
+		return "noop";
 	},
 	"archipelago/get_wood": function() {
 		return "logical";
@@ -893,15 +980,41 @@ const locationLogic = {
 		return "possible";
 	},
 	"archipelago/the_lie": function() {
-		return "excluded";
+		if (has("Bucket")) {
+			return has_iron_ingots();
+		}
+		return hasAll("possible", can_village());
 	},
 	"archipelago/overkill": function() {
-		return "excluded";
+		const brewable = hasAll(can_brew_potions(), has("Progressive Weapons"));
+		const netherable = hasAll(can_brew_potions(), can_nether());
+		const logicable = hasEither(brewable, netherable);
+		if (logicable) {
+			return logicable;
+		}
+		if (can_enchant()) {
+			return "possible";
+		}
 	},
 	"archipelago/obtain_bookshelf": function() {
-		return "excluded";
+		if (can_enchant()) {
+			return "logical";
+		}
 	},
 	"archipelago/ride_pig": function() {
-		return "excluded";
+		if (has("Saddle") && has("Fishing Rod")) {
+			const lootable = can_loot_fortress();
+			const raidable = can_complete_raid();
+			const either = hasEither(lootable, raidable);
+			if (either) {
+				return hasAll(either, can_adventure());
+			}
+		}
+		const lootable = can_loot_fortress();
+		const raidable = can_complete_raid();
+		const either = hasEither(lootable, raidable);
+		if (either) {
+			return hasAll("possible", either);
+		}
 	}
 }

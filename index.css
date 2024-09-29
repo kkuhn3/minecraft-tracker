@@ -91,10 +91,13 @@ img {
 	background-color: #8080ff;
 }
 .excluded {
-	background-color: #808080;
+	background-color: #ff80ff;
 }
 .checked {
 	background-color: #808080;
+}
+.noop {
+	background-color: #404040;
 }
 
 #settings {
