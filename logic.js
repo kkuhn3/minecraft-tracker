@@ -833,7 +833,10 @@ const locationLogic = {
 		return can_adventure();
 	},
 	"husbandry/fishy_business": function() {
-		return has("Fishing Rod");
+		if (has("Fishing Rod")) {
+			return "logical";
+		}
+		return "possible";
 	},
 	"husbandry/silk_touch_nest": function() {
 		return hasAll(has("Silk Touch Book"), can_use_anvil(), can_enchant());
