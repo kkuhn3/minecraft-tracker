@@ -67,25 +67,7 @@ function addOnClicks() {
 
 	const unlocks = document.getElementsByClassName("unlock");
 	for (let unlock of unlocks) {
-		let max = 1;
-		if (unlock.id === "Progressive Resource Crafting") {
-			max = 2;
-		}
-		else if (unlock.id === "Progressive Tools") {
-			max = 3;
-		}
-		else if (unlock.id === "Progressive Weapons") {
-			max = 3;
-		}
-		else if (unlock.id === "Progressive Armor") {
-			max = 2;
-		}
-		else if (unlock.id === "3 Ender Pearls") {
-			max = 4;
-		}
-		else if (unlock.id === "8 Netherite Scrap") {
-			max = 2;
-		}
+		const max = maxIter(unlock);
 		unlock.onclick = function() {
 			const count = itemIterate(unlock, max);
 			unlockUpdateImage(unlock, count, max);
@@ -99,6 +81,29 @@ function addOnClicks() {
 			updateNodes();
 		}
 	}
+}
+
+function maxIter(unlock) {
+	let max = 1;
+	if (unlock.id === "Progressive Resource Crafting") {
+		max = 2;
+	}
+	else if (unlock.id === "Progressive Tools") {
+		max = 3;
+	}
+	else if (unlock.id === "Progressive Weapons") {
+		max = 3;
+	}
+	else if (unlock.id === "Progressive Armor") {
+		max = 2;
+	}
+	else if (unlock.id === "3 Ender Pearls") {
+		max = 4;
+	}
+	else if (unlock.id === "8 Netherite Scrap") {
+		max = 2;
+	}
+	return max;
 }
 
 function itemIterate(unlock, max) {
