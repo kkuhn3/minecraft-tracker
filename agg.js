@@ -43,7 +43,7 @@ function connect() {
 		socket.send(`[{
 			"cmd" : "Connect",
 			"password" : "",
-			"game" : "Pokemon Emerald",
+			"game" : "Minecraft",
 			"name" : "` + PNAME.value + `",
 			"tags" : ["Tracker"],
 			"version" : {
