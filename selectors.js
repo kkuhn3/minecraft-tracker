@@ -126,6 +126,12 @@ function countChecks() {
 	let total = 0;
 	let checked = 0;
 	let logical = 0;
+	let lm = 0;
+	let ln = 0;
+	let le = 0;
+	let la = 0;
+	let lh = 0;
+	let lp = 0;
 	const nodes = document.getElementsByClassName("node");
 	for (let node of nodes) {
 		if (!node.classList.contains("noop")) {
@@ -135,8 +141,32 @@ function countChecks() {
 			}
 			else if (node.classList.contains("logical")){
 				logical = logical + 1;
+				if (node.id.includes("story/")) {
+					lm = lm + 1;
+				}
+				else if (node.id.includes("nether/")) {
+					ln = ln + 1;
+				}
+				else if (node.id.includes("end/")) {
+					le = le + 1;
+				}
+				else if (node.id.includes("adventure/")) {
+					la = la + 1;
+				}
+				else if (node.id.includes("husbandry/")) {
+					lh = lh + 1;
+				}
+				else {
+					lp = lp + 1;
+				}
 			}
 		}
 	}
 	counts.innerHTML = "" + checked + " / " + logical + " / " + total;
+	minecraftbutton.innerHTML = "Minecraft: " + lm;
+	netherbutton.innerHTML = "Nether: " + ln;
+	endbutton.innerHTML = "The End: " + le;
+	adventurebutton.innerHTML = "Adventure: " + la;
+	husbandrybutton.innerHTML = "Husbandry: " + lh;
+	archipelagobutton.innerHTML = "Archipelago: " + lp;
 }

@@ -871,7 +871,7 @@ const locationLogic = {
 		if (has("Bucket") && has("Progressive Tools", 2)) {
 			return hasAll(has_iron_ingots(), can_outpost());
 		}
-		return hasAll("possible", can_village(), can_outpost());
+		return hasAll("possible", hasEither(can_village(), has("Bucket")), can_outpost());
 	},
 	"husbandry/complete_catalogue": function() {
 		if (!include_hard_advancements.value) {

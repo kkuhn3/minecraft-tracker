@@ -20,11 +20,14 @@ body {
 	display: flex;
 	align-items: center;
 	button {
-		width: 90px;
-		margin-left: 10px;
+		width: 110px;
+		margin-left: 8px;
+	}
+	.smallerButton {
+		width: 65px
 	}
 	div {
-		margin-left: 10px;
+		margin-left: 8px;
 	}
 }
 
