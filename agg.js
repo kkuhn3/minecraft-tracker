@@ -34,22 +34,22 @@ function getCriteria(nodeId) {
 }
 
 function connect() {
-	if (!PNAME.value || !APORT.value) {
+	if (!ANAME.value || !APORT.value || !AHOST.value) {
 		return;
 	}
-	socket = new WebSocket("wss://archipelago.gg:" + APORT.value);
+	socket = new WebSocket("wss://" + AHOST.value + ":" + APORT.value);
 
 	socket.addEventListener('open', function (event) {
 		socket.send(`[{
 			"cmd" : "Connect",
-			"password" : "",
+			"password" : "` + APASS.value + `",
 			"game" : "Minecraft",
-			"name" : "` + PNAME.value + `",
+			"name" : "` + ANAME.value + `",
 			"tags" : ["Tracker"],
 			"version" : {
 				"major": 0,
 				"minor": 5,
-				"build": 0,
+				"build": 1,
 				"class": "Version"
 			},
 			"items_handling" : 7,
