@@ -81,6 +81,13 @@ function addOnClicks() {
 			updateNodes();
 		}
 	}
+
+	advancement_goal.onclick = function() {
+		updateNodes();
+	}
+	dragon_egg_shards.onclick = function() {
+		updateNodes();
+	}
 }
 
 function maxIter(unlock) {
@@ -103,11 +110,14 @@ function maxIter(unlock) {
 	else if (unlock.id === "8 Netherite Scrap") {
 		max = 2;
 	}
+	else if (unlock.id === "Dragon Egg Shard") {
+		max = 50;
+	}
 	return max;
 }
 
 function itemIterate(unlock, max) {
-	let count = parseInt(unlock.classList[1][1]);
+	let count = parseInt(unlock.classList[1].substring(1));
 	unlock.classList.remove("_" + count);
 	count = count + 1;
 	if (count > max) {

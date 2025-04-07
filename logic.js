@@ -219,7 +219,7 @@ function can_villager_overworld() {
 function has_wither_goal() {
 	if (required_bosses.value === "wither" || required_bosses.value === "both") {
 		const count = parseInt(counts.innerHTML.split(" / ")[0]);
-		if (count >= parseInt(advancement_goal.value)) {
+		if (count >= parseInt(advancement_goal.value) && has("Dragon Egg Shard", dragon_egg_shards.value)) {
 			return "logical";
 		}
 		return;
@@ -229,7 +229,7 @@ function has_wither_goal() {
 function has_dragon_goal() {
 	if (required_bosses.value === "dragon" || required_bosses.value === "both") {
 		const count = parseInt(counts.innerHTML.split(" / ")[0]);
-		if (count >= parseInt(advancement_goal.value)) {
+		if (count >= parseInt(advancement_goal.value) && has("Dragon Egg Shard", dragon_egg_shards.value)) {
 			return "logical";
 		}
 		return;

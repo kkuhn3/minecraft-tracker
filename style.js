@@ -205,6 +205,7 @@ function placeUnlocks() {
 	setTopLeft("Structure Compass (Nether Fortress)", 5, 3);
 	setTopLeft("Structure Compass (Bastion Remnant)", 5, 4);
 	setTopLeft("Structure Compass (End City)", 5, 5);
+	setTopLeft("Dragon Egg Shard", 5, 6);
 }
 
 function setTopLeft(eleId, t, l) {
