@@ -76,6 +76,7 @@ function connect() {
 					for (let location of command.checked_locations) {
 						gotLocation(location);
 					}
+					settingsFromSlotData(command.slot_data);
 				}
 				else if (command.cmd === "ReceivedItems") {
 					for (let item of command.items) {
@@ -119,5 +120,35 @@ function gotLocation(id) {
 	if (locationName) {
 		let div = document.getElementById(locationName);
 		div.classList.add("checked");
+	}
+}
+
+function settingsFromSlotData(slotData) {
+	advancement_goal.value = slotData["advancement_goal"];
+	dragon_egg_shards.value = slotData["egg_shards_required"];
+	required_bosses.value = slotData["required_bosses"];
+	for (let relm in slotData["structures"]) {
+		let biome = "overworld";
+		if (relm.includes("Nether")) {
+			biome = "nether";
+		}
+		else if (relm === "The End Structure") {
+			biome = "end";
+		}
+		if (slotData["structures"][relm] === "Village") {
+			village.value = biome;
+		}
+		else if (slotData["structures"][relm] === "Pillager Outpost") { 
+			outpost.value = biome;
+		}
+		else if (slotData["structures"][relm] === "Nether Fortress") { 
+			fortress.value = biome;
+		}
+		else if (slotData["structures"][relm] === "Bastion Remnant") { 
+			bastion.value = biome;
+		}
+		else if (slotData["structures"][relm] === "End City") { 
+			city.value = biome;
+		}
 	}
 }
